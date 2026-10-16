@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de Manipulação do DOM</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="documento">
+
+        <h1>Exercícios de Manipulação da Árvore DOM</h1>
+
+        <section class="exercicio">
+
+            <h2>Exercício 1: Alterando o Conteúdo de um Elemento</h2>
+
+            <p>
+                Para praticar a busca e modificação de elementos na tela,
+                considere o cenário em que existe um título principal com
+                texto desatualizado. Dada a estrutura HTML descrita a seguir,
+                escreva o código JavaScript necessário para selecionar o
+                elemento com o identificador "titulo-boas-vindas" e alterar
+                seu conteúdo textual para "Bem-vindo ao Curso de
+                Desenvolvimento de Sistemas!".
+            </p>
+
+            <pre><code>&lt;div id="container"&gt;
+    &lt;h1 id="titulo-boas-vindas"&gt;Texto Inicial...&lt;/h1&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Resposta:</h3>
+
+            <div id="container" class="resultado">
+                <h2 id="titulo-boas-vindas">Texto Inicial...</h2>
+            </div>
+
+            <h4>Código JavaScript da solução:</h4>
+
+            <pre><code>document.getElementById("titulo-boas-vindas").textContent =
+    "Bem-vindo ao Curso de Desenvolvimento de Sistemas!";</code></pre>
+
+            <h4>Explicação:</h4>
+
+            <p>
+                Utilizamos o método document.getElementById() para localizar
+                o elemento HTML pelo seu identificador "titulo-boas-vindas".
+                Em seguida, utilizamos a propriedade textContent para substituir
+                o conteúdo textual original pelo novo texto solicitado no enunciado.
+            </p>
+
+        </section>
+
+
+
+        <hr>
+
+        <section class="exercicio">
+
+            <h2>Exercício 2: Criando e Adicionando Elementos Dinamicamente</h2>
+
+            <p>
+                A criação de elementos em tempo de execução é fundamental
+                para interfaces dinâmicas. Considerando uma lista de tarefas
+                vazia ou parcialmente preenchida, crie uma função em JavaScript
+                chamada adicionarItem que receba um parâmetro do tipo texto.
+                Essa função deve criar um novo item de lista e anexá-lo ao final
+                da lista não ordenada que possui o identificador "lista-tarefas".
+            </p>
+
+            <pre><code>&lt;h2&gt;Minha Lista de Tarefas&lt;/h2&gt;
+&lt;ul id="lista-tarefas"&gt;
+    &lt;li&gt;Estudar sintaxe básica do JS&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+            <h3>Resposta:</h3>
+
+            <div class="resultado">
+                <h2>Minha Lista de Tarefas</h2>
+
+                <ul id="lista-tarefas">
+                    <li>Estudar sintaxe básica do JavaScript</li>
+                </ul>
+
+                <div class="area-teste">
+                    <input type="text" id="nova-tarefa" placeholder="Digite uma nova tarefa">
+                    <button id="btn-adicionar">Adicionar tarefa</button>
+                </div>
+            </div>
+
+            <pre><code>&lt;h2&gt;Minha Lista de Tarefas&lt;/h2&gt;
+&lt;ul id="lista-tarefas"&gt;
+    &lt;li&gt;Estudar sintaxe básica do JS&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+            <h4>Conteúdo do arquivo js/script.js:</h4>
+
+            <pre><code>function adicionarItem(texto) {
+    const novoItem = document.createElement("li");
+    novoItem.textContent = texto;
+
+    document.getElementById("lista-tarefas").appendChild(novoItem);
+}
+
+document.getElementById("btn-adicionar").addEventListener("click", function() {
+    const campo = document.getElementById("nova-tarefa");
+
+    if (campo.value.trim() !== "") {
+        adicionarItem(campo.value);
+        campo.value = "";
+    }
+});</code></pre>
+
+            <h4>Explicação:</h4>
+
+            <p>
+                Utilizamos document.createElement("li") para criar um novo
+                item de lista. A propriedade textContent define o texto desse
+                item, e o método appendChild() adiciona o novo elemento ao final
+                da lista identificada por "lista-tarefas".
+            </p>
+
+            <p>
+                Também utilizamos addEventListener() para executar a função
+                quando o botão for clicado. O campo é verificado para evitar
+                a inclusão de tarefas vazias.
+            </p>
+
+        </section>
+
+
+        <hr>
+
+        <section class="exercicio">
+
+            <h2>Exercício 3: Alternando e Alterando Estilos CSS com classList</h2>
+
+            <p>
+                A alteração visual de componentes no navegador deve ser feita
+                prioritariamente por meio de classes CSS. Com base na estrutura
+                a seguir, escreva um script em JavaScript para selecionar o
+                elemento contêiner com o identificador "painel", remover a
+                classe "oculto" para torná-lo visível e aplicar a classe
+                "destaque" para modificar sua apresentação visual.
+            </p>
+
+            <pre><code>&lt;style&gt;
+    .destaque {
+        background-color: #fef08a;
+        border: 2px solid #eab308;
+        padding: 12px;
+    }
+
+    .oculto {
+        display: none;
+    }
+&lt;/style&gt;
+
+&lt;div id="painel" class="oculto"&gt;
+    &lt;p&gt;Mensagem importante para o usuário!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Resposta:</h3>
+
+            <div id="painel" class="oculto">
+                <p>Mensagem importante para o usuário!</p>
+            </div>
+
+            <h4>Código JavaScript da solução:</h4>
+
+            <pre><code>const painel = document.getElementById("painel");
+
+painel.classList.remove("oculto");
+painel.classList.add("destaque");</code></pre>
+
+            <h4>Explicação:</h4>
+
+            <p>
+                Utilizamos document.getElementById("painel") para localizar
+                o elemento HTML. O método classList.remove("oculto") remove
+                a classe que mantém o painel escondido, tornando-o visível.
+                Em seguida, classList.add("destaque") adiciona a classe
+                responsável pela cor de fundo, borda e espaçamento do painel.
+            </p>
+
+        </section>
+
+
+        <hr>
+
+        <section class="exercicio">
+
+            <h2>Exercício 4: Remoção de Elementos da Árvore</h2>
+
+            <p>
+                O gerenciamento da árvore de elementos exige a capacidade de
+                excluir nós desnecessários. Dada a lista de notificações
+                mostrada no código HTML abaixo, desenvolva uma função em
+                JavaScript denominada removerPrimeiraNotificacao. Essa função
+                deve localizar a lista pelo seu identificador "notificacoes"
+                e remover apenas a primeira notificação contida nela sempre
+                que for executada.
+            </p>
+
+            <pre><code>&lt;ul id="notificacoes"&gt;
+    &lt;li id="notif-1"&gt;Notificação 1: Atualização de sistema&lt;/li&gt;
+    &lt;li id="notif-2"&gt;Notificação 2: Novo e-mail recebido&lt;/li&gt;
+    &lt;li id="notif-3"&gt;Notificação 3: Lembrete de aula&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+            <h3>Resposta:</h3>
+
+            <div class="resultado">
+                <ul id="notificacoes">
+                    <li id="notif-1">Notificação 1: Atualização de sistema</li>
+                    <li id="notif-2">Notificação 2: Novo e-mail recebido</li>
+                    <li id="notif-3">Notificação 3: Lembrete de aula</li>
+                </ul>
+
+                <button id="btn-remover-notificacao">
+                    Remover primeira notificação
+                </button>
+            </div>
+
+            <h4>Código JavaScript da solução:</h4>
+
+            <pre><code>function removerPrimeiraNotificacao() {
+    const lista = document.getElementById("notificacoes");
+
+    if (lista.firstElementChild) {
+        lista.removeChild(lista.firstElementChild);
+    }
+}
+
+document.getElementById("btn-remover-notificacao")
+    .addEventListener("click", removerPrimeiraNotificacao);</code></pre>
+
+            <h4>Explicação:</h4>
+
+            <p>
+                Utilizamos document.getElementById("notificacoes") para
+                localizar a lista de notificações. A propriedade
+                firstElementChild identifica o primeiro elemento da lista.
+                Em seguida, removeChild() remove esse elemento.
+            </p>
+
+            <p>
+                A condição if verifica se ainda existe algum item na lista,
+                evitando tentar remover um elemento quando a lista estiver vazia.
+                O método addEventListener() faz a função ser executada quando
+                o botão for clicado.
+            </p>
+
+        </section>
+
+
+        <hr>
+
+        <section class="exercicio">
+
+            <h2>Exercício 5: Manipulação com Eventos de Clique</h2>
+
+            <p>
+                A interatividade em aplicações web é alcançada pela captura
+                de ações do usuário. Utilizando a estrutura HTML abaixo,
+                construa um script em JavaScript que escute o evento de clique
+                do botão com o identificador "btn-exibir". Ao ser acionado,
+                o script deve capturar o texto digitado no campo de entrada
+                com o identificador "campo-nome" e exibir uma mensagem
+                personalizada dentro do parágrafo com o identificador "resposta".
+            </p>
+
+            <pre><code>&lt;div&gt;
+    &lt;input type="text" id="campo-nome" placeholder="Digite seu nome"&gt;
+    &lt;button id="btn-exibir"&gt;Exibir Mensagem&lt;/button&gt;
+    &lt;p id="resposta"&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Resposta:</h3>
+
+            <div class="resultado">
+                <div class="area-teste">
+                    <input type="text" id="campo-nome" placeholder="Digite seu nome">
+
+                    <button id="btn-exibir">Exibir Mensagem</button>
+
+                    <p id="resposta"></p>
+                </div>
+            </div>
+
+            <h4>Código JavaScript da solução:</h4>
+
+            <pre><code>document.getElementById("btn-exibir").addEventListener("click", function() {
+    const nome = document.getElementById("campo-nome").value;
+
+    document.getElementById("resposta").textContent =
+        "Olá, " + nome + "! Seja bem-vindo(a)!";
+});</code></pre>
+
+            <h4>Explicação:</h4>
+
+            <p>
+                Utilizamos o método addEventListener() para escutar o evento
+                de clique do botão identificado por "btn-exibir". Quando o
+                botão é acionado, a propriedade value captura o texto digitado
+                no campo "campo-nome". Em seguida, a propriedade textContent
+                exibe uma mensagem personalizada no parágrafo identificado
+                por "resposta".
+            </p>
+
+        </section>
+
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
