@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Configurações - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="pagina">
+
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+
+            <div class="logo-area">
+
+                <h1>
+                    Hotel Pet
+                </h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html">
+                    Reservas
+                </a>
+
+                <a href="pets.html">
+                    Pets
+                </a>
+
+                <a href="usuarios.html">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html" class="ativo">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="editar_perfil.html">
+                    Meu perfil
+                </a>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+
+            <!-- =================================================
+                 TÍTULO
+                 ================================================= -->
+
+            <div class="titulo-pagina">
+
+
+                <div>
+
+                    <h2>
+                        Configurações
+                    </h2>
+
+                    <p>
+                        Configure as informações e preferências do Hotel Pet.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CONFIGURAÇÕES GERAIS
+                 ================================================= -->
+
+            <section class="formulario-card">
+
+
+                <form action="#" method="post">
+
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Configurações gerais
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="nome_hotel">
+                                    Nome do hotel
+                                </label>
+
+                                <input type="text" id="nome_hotel" name="nome_hotel" value="Hotel Pet">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="telefone">
+                                    Telefone
+                                </label>
+
+                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="email">
+                                    E-mail
+                                </label>
+
+                                <input type="email" id="email" name="email" placeholder="contato@hotelpet.com">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="capacidade">
+                                    Capacidade de hospedagem
+                                </label>
+
+                                <input type="number" id="capacidade" name="capacidade" min="1" value="20">
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         HORÁRIO DE FUNCIONAMENTO
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Horário de funcionamento
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="abertura">
+                                    Horário de abertura
+                                </label>
+
+                                <input type="time" id="abertura" name="abertura" value="08:00">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="fechamento">
+                                    Horário de fechamento
+                                </label>
+
+                                <input type="time" id="fechamento" name="fechamento" value="18:00">
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         CONFIGURAÇÕES DE RESERVA
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Configurações de reserva
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="antecedencia">
+                                    Antecedência mínima para reserva
+                                </label>
+
+                                <select id="antecedencia" name="antecedencia">
+
+                                    <option value="0">
+                                        Sem antecedência
+                                    </option>
+
+                                    <option value="1" selected>
+                                        1 dia
+                                    </option>
+
+                                    <option value="2">
+                                        2 dias
+                                    </option>
+
+                                    <option value="3">
+                                        3 dias
+                                    </option>
+
+                                    <option value="7">
+                                        7 dias
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="cancelamento">
+                                    Prazo para cancelamento
+                                </label>
+
+                                <select id="cancelamento" name="cancelamento">
+
+                                    <option value="1">
+                                        1 dia antes
+                                    </option>
+
+                                    <option value="2" selected>
+                                        2 dias antes
+                                    </option>
+
+                                    <option value="3">
+                                        3 dias antes
+                                    </option>
+
+                                    <option value="7">
+                                        7 dias antes
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         NOTIFICAÇÕES
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Notificações
+                        </h3>
+
+
+                        <div class="opcoes-configuracao">
+
+
+                            <label class="opcao-checkbox">
+
+                                <input type="checkbox" name="notificacao_reserva" checked>
+
+                                <span>
+                                    Enviar confirmação de reserva
+                                </span>
+
+                            </label>
+
+
+                            <label class="opcao-checkbox">
+
+                                <input type="checkbox" name="notificacao_cancelamento" checked>
+
+                                <span>
+                                    Notificar cancelamento de reserva
+                                </span>
+
+                            </label>
+
+
+                            <label class="opcao-checkbox">
+
+                                <input type="checkbox" name="notificacao_checkin" checked>
+
+                                <span>
+                                    Notificar chegada do pet
+                                </span>
+
+                            </label>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         AÇÕES
+                         ================================================= -->
+
+                    <div class="acoes-formulario">
+
+
+                        <a href="index.html" class="botao-cancelar">
+                            Cancelar
+                        </a>
+
+
+                        <button type="submit" class="botao-principal">
+                            Salvar configurações
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pets - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="pagina">
+
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+
+            <div class="logo-area">
+
+                <h1>
+                    Hotel Pet
+                </h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html">
+                    Reservas
+                </a>
+
+                <a href="pets.html" class="ativo">
+                    Pets
+                </a>
+
+                <a href="usuarios.html">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="editar_perfil.html">
+                    Meu perfil
+                </a>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+
+            <!-- TÍTULO DA PÁGINA -->
+
+            <div class="titulo-pagina">
+
+                <div>
+
+                    <h2>
+                        Pets
+                    </h2>
+
+                    <p>
+                        Gerencie os pets cadastrados no Hotel Pet.
+                    </p>
+
+                </div>
+
+
+                <a href="cadastrar_pet.html" class="botao-principal">
+                    + Cadastrar pet
+                </a>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                 FILTROS
+                 ===================================================== -->
+
+            <section class="filtros">
+
+
+                <div class="campo-pesquisa">
+
+                    <label for="pesquisa">
+                        Pesquisar
+                    </label>
+
+                    <input type="text" id="pesquisa" name="pesquisa" placeholder="Digite o nome do pet ou proprietário">
+
+                </div>
+
+
+                <div class="campo-status">
+
+                    <label for="tipo">
+                        Tipo
+                    </label>
+
+                    <select id="tipo" name="tipo">
+
+                        <option value="todos">
+                            Todos
+                        </option>
+
+                        <option value="cachorro">
+                            Cachorro
+                        </option>
+
+                        <option value="gato">
+                            Gato
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button type="button" class="botao-filtrar">
+                    Filtrar
+                </button>
+
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 LISTA DE PETS
+                 ===================================================== -->
+
+            <section class="lista-pets">
+
+
+                <!-- CABEÇALHO DA LISTA -->
+
+                <div class="cabecalho-lista">
+
+                    <h3>
+                        Pets cadastrados
+                    </h3>
+
+                    <span>
+                        4 pets
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     THOR
+                     ================================================= -->
+
+                <article class="pet-card">
+
+
+                    <!-- FOTO -->
+
+                    <div class="foto-pet">
+
+                        <img src="imagens/cachorro01.png" alt="Foto do cachorro Thor">
+
+                    </div>
+
+
+                    <!-- NOME E TIPO -->
+
+                    <div class="dados-pet-card">
+
+                        <h3>
+                            Thor
+                        </h3>
+
+                        <p>
+                            Cachorro
+                        </p>
+
+                    </div>
+
+
+                    <!-- RAÇA -->
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Raça
+                        </span>
+
+                        <strong>
+                            Golden Retriever
+                        </strong>
+
+                    </div>
+
+
+                    <!-- TAMANHO -->
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Tamanho
+                        </span>
+
+                        <strong>
+                            Grande
+                        </strong>
+
+                    </div>
+
+
+                    <!-- PROPRIETÁRIO -->
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            Carlos Oliveira
+                        </strong>
+
+                    </div>
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="acoes-pet">
+
+                        <a href="visualizar_pet.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+                        <a href="editar_pet.html" class="botao-editar">
+                            Editar
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     MEL
+                     ================================================= -->
+
+                <article class="pet-card">
+
+
+                    <div class="foto-pet">
+
+                        <img src="imagens/cachorro02.png" alt="Foto da cachorra Mel">
+
+                    </div>
+
+
+                    <div class="dados-pet-card">
+
+                        <h3>
+                            Mel
+                        </h3>
+
+                        <p>
+                            Cachorro
+                        </p>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Raça
+                        </span>
+
+                        <strong>
+                            Shih-tzu
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Tamanho
+                        </span>
+
+                        <strong>
+                            Pequeno
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            Ana Souza
+                        </strong>
+
+                    </div>
+
+
+                    <div class="acoes-pet">
+
+                        <a href="visualizar_pet.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+                        <a href="editar_pet.html" class="botao-editar">
+                            Editar
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     NINA
+                     ================================================= -->
+
+                <article class="pet-card">
+
+
+                    <div class="foto-pet">
+
+                        <img src="imagens/cachorro03.png" alt="Foto da cachorra Nina">
+
+                    </div>
+
+
+                    <div class="dados-pet-card">
+
+                        <h3>
+                            Nina
+                        </h3>
+
+                        <p>
+                            Cachorro
+                        </p>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Raça
+                        </span>
+
+                        <strong>
+                            Poodle
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Tamanho
+                        </span>
+
+                        <strong>
+                            Médio
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            João Santos
+                        </strong>
+
+                    </div>
+
+
+                    <div class="acoes-pet">
+
+                        <a href="visualizar_pet.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+                        <a href="editar_pet.html" class="botao-editar">
+                            Editar
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     SIMBA
+                     ================================================= -->
+
+                <article class="pet-card">
+
+
+                    <div class="foto-pet">
+
+                        <img src="imagens/gato01.png" alt="Foto do gato Simba">
+
+                    </div>
+
+
+                    <div class="dados-pet-card">
+
+                        <h3>
+                            Simba
+                        </h3>
+
+                        <p>
+                            Gato
+                        </p>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Raça
+                        </span>
+
+                        <strong>
+                            Siamês
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Tamanho
+                        </span>
+
+                        <strong>
+                            Médio
+                        </strong>
+
+                    </div>
+
+
+                    <div class="informacao-pet-card">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            Mariana Costa
+                        </strong>
+
+                    </div>
+
+
+                    <div class="acoes-pet">
+
+                        <a href="visualizar_pet.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+                        <a href="editar_pet.html" class="botao-editar">
+                            Editar
+                        </a>
+
+                    </div>
+
+
+                </article>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>

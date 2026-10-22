@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Usuários - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="pagina">
+
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+
+            <div class="logo-area">
+
+                <h1>
+                    Hotel Pet
+                </h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html">
+                    Reservas
+                </a>
+
+                <a href="pets.html">
+                    Pets
+                </a>
+
+                <a href="usuarios.html" class="ativo">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="editar_perfil.html?origem=perfil">
+                    Meu perfil
+                </a>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+
+            <!-- =================================================
+                 TÍTULO
+                 ================================================= -->
+
+            <div class="titulo-pagina">
+
+
+                <div>
+
+                    <h2>
+                        Usuários
+                    </h2>
+
+                    <p>
+                        Gerencie os usuários cadastrados no Hotel Pet.
+                    </p>
+
+                </div>
+
+
+                <a href="cadastrar_usuario.html" class="botao-principal">
+                    + Cadastrar usuário
+                </a>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTROS
+                 ================================================= -->
+
+            <section class="filtros">
+
+
+                <div class="campo-pesquisa">
+
+                    <label for="pesquisa">
+                        Pesquisar
+                    </label>
+
+                    <input type="text" id="pesquisa" name="pesquisa" placeholder="Digite o nome ou login do usuário">
+
+                </div>
+
+
+                <div class="campo-status">
+
+                    <label for="funcao">
+                        Função
+                    </label>
+
+                    <select id="funcao" name="funcao">
+
+                        <option value="todos">
+                            Todas
+                        </option>
+
+                        <option value="cliente">
+                            Cliente
+                        </option>
+
+                        <option value="funcionario">
+                            Funcionário
+                        </option>
+
+                        <option value="gerente">
+                            Gerente
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button type="button" class="botao-filtrar">
+                    Filtrar
+                </button>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 USUÁRIOS CADASTRADOS
+                 ================================================= -->
+
+            <section class="lista-usuarios">
+
+
+                <div class="cabecalho-lista">
+
+                    <h3>
+                        Usuários cadastrados
+                    </h3>
+
+                    <span>
+                        5 usuários
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     TABELA
+                     ================================================= -->
+
+                <div class="tabela-container">
+
+
+                    <table class="tabela-usuarios">
+
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Código
+                                </th>
+
+                                <th>
+                                    Nome
+                                </th>
+
+                                <th>
+                                    Login
+                                </th>
+
+                                <th>
+                                    E-mail
+                                </th>
+
+                                <th>
+                                    Função
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Ações
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <!-- =================================================
+                                 USUÁRIO 001 - CARLOS OLIVEIRA
+                                 ================================================= -->
+
+                            <tr>
+
+                                <td>
+                                    001
+                                </td>
+
+                                <td>
+                                    Carlos Oliveira
+                                </td>
+
+                                <td>
+                                    carlos
+                                </td>
+
+                                <td>
+                                    carlos@email.com
+                                </td>
+
+                                <td>
+                                    Cliente
+                                </td>
+
+                                <td>
+
+                                    <span class="status-usuario ativo">
+                                        Ativo
+                                    </span>
+
+                                </td>
+
+                                <td class="acoes-tabela">
+
+                                    <a href="editar_perfil.html?origem=usuario">
+                                        Editar
+                                    </a>
+
+                                    <a href="#">
+                                        Excluir
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 USUÁRIO 002 - ANA SOUZA
+                                 ================================================= -->
+
+                            <tr>
+
+                                <td>
+                                    002
+                                </td>
+
+                                <td>
+                                    Ana Souza
+                                </td>
+
+                                <td>
+                                    ana
+                                </td>
+
+                                <td>
+                                    ana@email.com
+                                </td>
+
+                                <td>
+                                    Cliente
+                                </td>
+
+                                <td>
+
+                                    <span class="status-usuario ativo">
+                                        Ativo
+                                    </span>
+
+                                </td>
+
+                                <td class="acoes-tabela">
+
+                                    <a href="editar_perfil.html?origem=usuario">
+                                        Editar
+                                    </a>
+
+                                    <a href="#">
+                                        Excluir
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 USUÁRIO 003 - JOÃO SANTOS
+                                 ================================================= -->
+
+                            <tr>
+
+                                <td>
+                                    003
+                                </td>
+
+                                <td>
+                                    João Santos
+                                </td>
+
+                                <td>
+                                    joao
+                                </td>
+
+                                <td>
+                                    joao@email.com
+                                </td>
+
+                                <td>
+                                    Funcionário
+                                </td>
+
+                                <td>
+
+                                    <span class="status-usuario ativo">
+                                        Ativo
+                                    </span>
+
+                                </td>
+
+                                <td class="acoes-tabela">
+
+                                    <a href="editar_perfil.html?origem=usuario">
+                                        Editar
+                                    </a>
+
+                                    <a href="#">
+                                        Excluir
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 USUÁRIO 004 - MARIANA COSTA
+                                 ================================================= -->
+
+                            <tr>
+
+                                <td>
+                                    004
+                                </td>
+
+                                <td>
+                                    Mariana Costa
+                                </td>
+
+                                <td>
+                                    mariana
+                                </td>
+
+                                <td>
+                                    mariana@email.com
+                                </td>
+
+                                <td>
+                                    Gerente
+                                </td>
+
+                                <td>
+
+                                    <span class="status-usuario ativo">
+                                        Ativo
+                                    </span>
+
+                                </td>
+
+                                <td class="acoes-tabela">
+
+                                    <a href="editar_perfil.html?origem=usuario">
+                                        Editar
+                                    </a>
+
+                                    <a href="#">
+                                        Excluir
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+
+                            <!-- =================================================
+                                 USUÁRIO 005 - PEDRO ALMEIDA
+                                 ================================================= -->
+
+                            <tr>
+
+                                <td>
+                                    005
+                                </td>
+
+                                <td>
+                                    Pedro Almeida
+                                </td>
+
+                                <td>
+                                    pedro
+                                </td>
+
+                                <td>
+                                    pedro@email.com
+                                </td>
+
+                                <td>
+                                    Funcionário
+                                </td>
+
+                                <td>
+
+                                    <span class="status-usuario inativo">
+                                        Inativo
+                                    </span>
+
+                                </td>
+
+                                <td class="acoes-tabela">
+
+                                    <a href="editar_perfil.html?origem=usuario">
+                                        Editar
+                                    </a>
+
+                                    <a href="#">
+                                        Excluir
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reservas - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="pagina">
+
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+
+            <div class="logo-area">
+
+                <h1>
+                    Hotel Pet
+                </h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html" class="ativo">
+                    Reservas
+                </a>
+
+                <a href="pets.html">
+                    Pets
+                </a>
+
+                <a href="usuarios.html">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="editar_perfil.html">
+                    Meu perfil
+                </a>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+
+            <!-- =================================================
+                 TÍTULO
+                 ================================================= -->
+
+            <div class="titulo-pagina">
+
+
+                <div>
+
+                    <h2>
+                        Reservas
+                    </h2>
+
+                    <p>
+                        Gerencie as reservas de hospedagem dos pets.
+                    </p>
+
+                </div>
+
+
+                <a href="fazer_reserva.html" class="botao-principal">
+                    + Fazer reserva
+                </a>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FILTROS
+                 ================================================= -->
+
+            <section class="filtros">
+
+
+                <div class="campo-pesquisa">
+
+                    <label for="pesquisa">
+                        Pesquisar
+                    </label>
+
+                    <input type="text" id="pesquisa" name="pesquisa" placeholder="Digite o nome do pet ou tutor">
+
+                </div>
+
+
+                <div class="campo-status">
+
+                    <label for="status">
+                        Status
+                    </label>
+
+                    <select id="status" name="status">
+
+                        <option value="todos">
+                            Todos
+                        </option>
+
+                        <option value="agendada">
+                            Agendada
+                        </option>
+
+                        <option value="andamento">
+                            Em andamento
+                        </option>
+
+                        <option value="finalizada">
+                            Finalizada
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button type="button" class="botao-filtrar">
+                    Filtrar
+                </button>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 LISTA DE RESERVAS
+                 ================================================= -->
+
+            <section class="lista-reservas">
+
+
+                <div class="cabecalho-lista">
+
+                    <h3>
+                        Reservas cadastradas
+                    </h3>
+
+                    <span>
+                        3 reservas
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     RESERVA 001 - THOR
+                     ================================================= -->
+
+                <article class="reserva-card">
+
+
+                    <!-- PET -->
+
+                    <div class="pet-reserva">
+
+
+                        <img src="imagens/cachorro01.png" alt="Foto do cachorro Thor">
+
+
+                        <div>
+
+                            <strong>
+                                Thor
+                            </strong>
+
+                            <span>
+                                Cachorro
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PROPRIETÁRIO -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            Carlos Oliveira
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- ENTRADA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Entrada
+                        </span>
+
+                        <strong>
+                            20/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- SAÍDA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Saída
+                        </span>
+
+                        <strong>
+                            25/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="status status-agendada">
+
+                        Agendada
+
+                    </div>
+
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="acoes-reserva">
+
+
+                        <a href="ver_reserva.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+
+                        <a href="editar_reserva.html" class="botao-editar">
+                            Editar
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     RESERVA 002 - MEL
+                     ================================================= -->
+
+                <article class="reserva-card">
+
+
+                    <!-- PET -->
+
+                    <div class="pet-reserva">
+
+
+                        <img src="imagens/cachorro02.png" alt="Foto da cachorra Mel">
+
+
+                        <div>
+
+                            <strong>
+                                Mel
+                            </strong>
+
+                            <span>
+                                Cachorro
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PROPRIETÁRIO -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            Ana Souza
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- ENTRADA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Entrada
+                        </span>
+
+                        <strong>
+                            18/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- SAÍDA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Saída
+                        </span>
+
+                        <strong>
+                            22/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="status status-andamento">
+
+                        Em andamento
+
+                    </div>
+
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="acoes-reserva">
+
+
+                        <a href="ver_reserva.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+
+                        <a href="editar_reserva_andamento.html" class="botao-editar">
+                            Editar
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+
+                <!-- =================================================
+                     RESERVA 003 - NINA
+                     ================================================= -->
+
+                <article class="reserva-card">
+
+
+                    <!-- PET -->
+
+                    <div class="pet-reserva">
+
+
+                        <img src="imagens/cachorro03.png" alt="Foto da cachorra Nina">
+
+
+                        <div>
+
+                            <strong>
+                                Nina
+                            </strong>
+
+                            <span>
+                                Cachorro
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PROPRIETÁRIO -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Proprietário
+                        </span>
+
+                        <strong>
+                            João Santos
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- ENTRADA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Entrada
+                        </span>
+
+                        <strong>
+                            10/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- SAÍDA -->
+
+                    <div class="informacao-reserva">
+
+                        <span>
+                            Saída
+                        </span>
+
+                        <strong>
+                            15/08/2026
+                        </strong>
+
+                    </div>
+
+
+
+                    <!-- STATUS -->
+
+                    <div class="status status-finalizada">
+
+                        Finalizada
+
+                    </div>
+
+
+
+                    <!-- AÇÕES -->
+
+                    <div class="acoes-reserva">
+
+
+                        <a href="ver_reserva.html" class="botao-visualizar">
+                            Visualizar
+                        </a>
+
+
+                        <a href="editar_reserva_finalizada.html" class="botao-editar">
+                            Editar
+                        </a>
+
+
+                    </div>
+
+
+                </article>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+</body>
+
+</html>

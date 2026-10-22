@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Visualizar Reserva - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+            <div class="logo-area">
+
+                <h1>Hotel Pet</h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html" class="ativo">
+                    Reservas
+                </a>
+
+                <a href="pets.html">
+                    Pets
+                </a>
+
+                <a href="usuarios.html">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">|</span>
+
+                <a href="editar_perfil.html">
+                    Meu perfil
+                </a>
+
+                <span class="separador">|</span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+            <div class="titulo-pagina">
+
+                <div>
+
+                    <h2>
+                        Visualizar reserva
+                    </h2>
+
+                    <p>
+                        Confira os dados da reserva de hospedagem.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 DADOS DA RESERVA
+                 ===================================================== -->
+
+            <section class="visualizacao-reserva">
+
+                <div class="cabecalho-reserva">
+
+                    <div>
+
+                        <span class="codigo-reserva">
+                            Reserva 001
+                        </span>
+
+                        <h3>
+                            Thor
+                        </h3>
+
+                        <p>
+                            Cachorro
+                        </p>
+
+                    </div>
+
+
+                    <span class="status status-agendada">
+                        Agendada
+                    </span>
+
+                </div>
+
+
+                <!-- PET -->
+
+                <div class="dados-pet">
+
+                    <div class="imagem-pet">
+
+                        <img src="imagens/cachorro01.png" alt="Foto do cachorro Thor">
+
+                    </div>
+
+
+                    <div class="informacoes-pet">
+
+                        <h3>
+                            Dados do pet
+                        </h3>
+
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Nome
+                            </span>
+
+                            <strong>
+                                Thor
+                            </strong>
+
+                        </div>
+
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Tipo
+                            </span>
+
+                            <strong>
+                                Cachorro
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DADOS DA RESERVA -->
+
+                <div class="dados-reserva">
+
+                    <h3>
+                        Dados da hospedagem
+                    </h3>
+
+
+                    <div class="grade-dados">
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Proprietário
+                            </span>
+
+                            <strong>
+                                Carlos Oliveira
+                            </strong>
+
+                        </div>
+
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Data de entrada
+                            </span>
+
+                            <strong>
+                                20/08/2026
+                            </strong>
+
+                        </div>
+
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Data de saída
+                            </span>
+
+                            <strong>
+                                25/08/2026
+                            </strong>
+
+                        </div>
+
+
+                        <div class="campo-visualizacao">
+
+                            <span>
+                                Valor da hospedagem
+                            </span>
+
+                            <strong>
+                                R$ 250,00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OBSERVAÇÕES -->
+
+                <div class="observacoes-reserva">
+
+                    <h3>
+                        Observações
+                    </h3>
+
+                    <p>
+                        Nenhuma observação cadastrada.
+                    </p>
+
+                </div>
+
+
+                <!-- BOTÕES -->
+
+                <div class="acoes-formulario">
+
+                    <a href="reservas.html" class="botao-cancelar">
+                        Voltar para reservas
+                    </a>
+
+
+                    <a href="editar_reserva.html" class="botao-principal">
+                        Editar reserva
+                    </a>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

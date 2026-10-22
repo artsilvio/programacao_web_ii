@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar perfil - Hotel Pet</title>
+
+    <link rel="stylesheet" href="css/estilo.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="pagina">
+
+
+        <!-- =====================================================
+             CABEÇALHO
+             ===================================================== -->
+
+        <header class="cabecalho">
+
+
+            <div class="logo-area">
+
+                <h1>
+                    Hotel Pet
+                </h1>
+
+                <p>
+                    Sistema de gerenciamento de hospedagem para Pets
+                </p>
+
+            </div>
+
+
+            <nav class="menu">
+
+                <a href="reservas.html">
+                    Reservas
+                </a>
+
+                <a href="pets.html">
+                    Pets
+                </a>
+
+                <a href="usuarios.html">
+                    Usuários
+                </a>
+
+                <a href="configuracoes.html">
+                    Configurações
+                </a>
+
+            </nav>
+
+
+            <div class="usuario-area">
+
+                <span>
+                    Usuário:
+                    <strong>Gerente</strong>
+                </span>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="editar_perfil.html?origem=perfil" class="ativo">
+                    Meu perfil
+                </a>
+
+                <span class="separador">
+                    |
+                </span>
+
+                <a href="index.html">
+                    Sair
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================================
+             CONTEÚDO
+             ===================================================== -->
+
+        <main class="conteudo">
+
+
+            <!-- =================================================
+                 TÍTULO
+                 ================================================= -->
+
+            <div class="titulo-pagina">
+
+
+                <div>
+
+                    <h2>
+                        Editar perfil
+                    </h2>
+
+                    <p>
+                        Atualize seus dados pessoais e informações de acesso.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FORMULÁRIO
+                 ================================================= -->
+
+            <section class="formulario-card">
+
+
+                <form id="form-editar-perfil">
+
+
+                    <!-- =================================================
+                         DADOS PESSOAIS
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Dados pessoais
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="nome">
+                                    Nome completo
+                                </label>
+
+                                <input type="text" id="nome" name="nome" value="Mariana Costa">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="email">
+                                    E-mail
+                                </label>
+
+                                <input type="email" id="email" name="email" value="mariana@email.com">
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DADOS DE ACESSO
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Dados de acesso
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="login">
+                                    Login
+                                </label>
+
+                                <input type="text" id="login" name="login" value="mariana">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="funcao">
+                                    Função
+                                </label>
+
+                                <select id="funcao" name="funcao">
+
+                                    <option value="cliente">
+                                        Cliente
+                                    </option>
+
+                                    <option value="funcionario">
+                                        Funcionário
+                                    </option>
+
+                                    <option value="gerente" selected>
+                                        Gerente
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         ALTERAR SENHA
+                         ================================================= -->
+
+                    <div class="grupo-formulario">
+
+
+                        <h3>
+                            Alterar senha
+                        </h3>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="senha_atual">
+                                    Senha atual
+                                </label>
+
+                                <input type="password" id="senha_atual" name="senha_atual"
+                                    placeholder="Digite sua senha atual">
+
+                            </div>
+
+
+                            <div class="campo-formulario">
+
+                                <label for="nova_senha">
+                                    Nova senha
+                                </label>
+
+                                <input type="password" id="nova_senha" name="nova_senha"
+                                    placeholder="Digite a nova senha">
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="linha-formulario">
+
+
+                            <div class="campo-formulario">
+
+                                <label for="confirmar_senha">
+                                    Confirmar nova senha
+                                </label>
+
+                                <input type="password" id="confirmar_senha" name="confirmar_senha"
+                                    placeholder="Digite a nova senha novamente">
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         AÇÕES
+                         ================================================= -->
+
+                    <div class="acoes-formulario">
+
+
+                        <a href="usuarios.html" class="botao-cancelar">
+                            Cancelar
+                        </a>
+
+
+                        <button type="submit" class="botao-principal">
+                            Salvar alterações
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+    <script src="js/editar_usuario_perfil.js"></script>
+</body>
+
+</html>
