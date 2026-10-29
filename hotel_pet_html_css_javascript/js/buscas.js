@@ -1,68 +1,87 @@
 
-document.addEventListener("DOMContentLoaded", function () {
+function normalizarTexto(texto) {
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
 
-    const campoPesquisa = document.getElementById("pesquisa");
-    const campoStatus = document.getElementById("status");
-    const botaoFiltrar = document.querySelector(".botao-filtrar");
+// ========================================
+// PESQUISA E FILTRO DE RESERVAS
+// ========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const pesquisa = document.getElementById("pesquisa");
+    const status = document.getElementById("status");
+    const tipoPet = document.getElementById("tipo-pet");
+    const botao = document.querySelector(".botao-filtrar");
     const reservas = document.querySelectorAll(".reserva-card");
 
-    if (!campoStatus || reservas.length === 0) {
-        return;
-    }
+    if (!pesquisa || !status || reservas.length === 0) return;
 
-    function filtrarReservas() {
-
-        const textoPesquisa = campoPesquisa.value
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .trim();
-
-        const statusSelecionado = campoStatus.value;
+    function filtrar() {
+        const texto = normalizarTexto(pesquisa.value);
+        const statusSelecionado = normalizarTexto(status.value);
+        const tipoSelecionado = tipoPet
+            ? normalizarTexto(tipoPet.value)
+            : "todos";
 
         reservas.forEach(function (reserva) {
+            const textoReserva = normalizarTexto(reserva.innerText);
+            const statusElemento = reserva.querySelector(".status");
+            const tipoElemento = reserva.querySelector(".pet-reserva span");
 
-            const textoReserva = reserva.innerText
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
-
-            let statusReserva = reserva
-                .querySelector(".status")
-                .innerText
-                .toLowerCase()
-                .trim()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
+            let statusReserva = normalizarTexto(
+                statusElemento ? statusElemento.innerText : ""
+            );
 
             if (statusReserva === "em andamento") {
                 statusReserva = "andamento";
             }
 
-            const correspondeTexto =
-                textoReserva.includes(textoPesquisa);
-
-            const correspondeStatus =
-                statusSelecionado === "todos" ||
-                statusReserva === statusSelecionado;
-
-            reserva.hidden = !(
-                correspondeTexto && correspondeStatus
+            const tipoReserva = normalizarTexto(
+                tipoElemento ? tipoElemento.innerText : ""
             );
 
+            const textoOK = textoReserva.includes(texto);
+            const statusOK =
+                statusSelecionado === "todos" ||
+                statusReserva === statusSelecionado;
+            const tipoOK =
+                tipoSelecionado === "todos" ||
+                tipoReserva === tipoSelecionado;
+
+            reserva.hidden = !(textoOK && statusOK && tipoOK);
         });
 
+        const visiveis = Array.from(reservas)
+            .filter(item => !item.hidden).length;
+
+        const titulo = document.getElementById("titulo-lista-reservas");
+        const contador = document.getElementById("contador-reservas");
+
+        if (titulo) {
+            titulo.textContent = pesquisa.value.trim() ||
+                statusSelecionado !== "todos" ||
+                tipoSelecionado !== "todos"
+                ? (visiveis === 1 ? "Reserva encontrada" : "Reservas encontradas")
+                : (visiveis === 1 ? "Reserva cadastrada" : "Reservas cadastradas");
+        }
+
+        if (contador) {
+            contador.textContent =
+                visiveis + (visiveis === 1 ? " reserva" : " reservas");
+        }
     }
 
-    // Pesquisa automaticamente enquanto digita
-    campoPesquisa.addEventListener("input", filtrarReservas);
+    pesquisa.addEventListener("input", filtrar);
+    status.addEventListener("change", filtrar);
 
-    // Aplica o filtro quando o status é alterado
-    campoStatus.addEventListener("change", filtrarReservas);
+    if (tipoPet) tipoPet.addEventListener("change", filtrar);
+    if (botao) botao.addEventListener("click", filtrar);
 
-    // Mantém o funcionamento do botão Filtrar
-    botaoFiltrar.addEventListener("click", filtrarReservas);
-
+    filtrar();
 });
 
 // ========================================
@@ -70,140 +89,187 @@ document.addEventListener("DOMContentLoaded", function () {
 // ========================================
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    const campoPesquisaPets = document.getElementById("pesquisa");
-    const campoTipoPets = document.getElementById("tipo");
-    const botaoFiltrarPets = document.querySelector(".botao-filtrar");
+    const pesquisa = document.getElementById("pesquisa");
+    const tipo = document.getElementById("tipo");
+    const botao = document.querySelector(".botao-filtrar");
     const pets = document.querySelectorAll(".pet-card");
 
-    // Só executa este bloco na página que possui cartões de pets
-    if (campoPesquisaPets && campoTipoPets && pets.length > 0) {
+    if (!pesquisa || !tipo || pets.length === 0) return;
 
-        function filtrarPets() {
+    function filtrar() {
+        const texto = normalizarTexto(pesquisa.value);
+        const tipoSelecionado = normalizarTexto(tipo.value);
 
-            const textoPesquisa = campoPesquisaPets.value
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .trim();
+        pets.forEach(function (pet) {
+            const textoPet = normalizarTexto(pet.innerText);
+            const elementoTipo = pet.querySelector(".dados-pet-card p");
+            const tipoPet = normalizarTexto(
+                elementoTipo ? elementoTipo.innerText : ""
+            );
 
-            const tipoSelecionado = campoTipoPets.value;
+            const textoOK = textoPet.includes(texto);
+            const tipoOK =
+                tipoSelecionado === "todos" ||
+                tipoPet === tipoSelecionado;
 
-            pets.forEach(function (pet) {
+            pet.hidden = !(textoOK && tipoOK);
+        });
 
-                const textoPet = pet.innerText
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
+        const visiveis = Array.from(pets)
+            .filter(item => !item.hidden).length;
 
-                const tipoPet = pet
-                    .querySelector(".dados-pet-card p")
-                    .innerText
-                    .toLowerCase()
-                    .trim();
+        const titulo = document.getElementById("titulo-lista-pets");
+        const contador = document.getElementById("contador-pets");
+        const pesquisaAtiva =
+            pesquisa.value.trim() !== "" ||
+            tipoSelecionado !== "todos";
 
-                const correspondeTexto =
-                    textoPet.includes(textoPesquisa);
-
-                const correspondeTipo =
-                    tipoSelecionado === "todos" ||
-                    tipoPet === tipoSelecionado;
-
-                pet.hidden = !(
-                    correspondeTexto && correspondeTipo
-                );
-
-            });
+        if (titulo) {
+            if (pesquisaAtiva) {
+                titulo.textContent = visiveis === 1
+                    ? "Pet encontrado"
+                    : "Pets encontrados";
+            } else {
+                titulo.textContent = visiveis === 1
+                    ? "Pet cadastrado"
+                    : "Pets cadastrados";
+            }
         }
 
-        campoPesquisaPets.addEventListener("input", filtrarPets);
-        campoTipoPets.addEventListener("change", filtrarPets);
-
-        if (botaoFiltrarPets) {
-            botaoFiltrarPets.addEventListener("click", filtrarPets);
+        if (contador) {
+            contador.textContent =
+                visiveis + (visiveis === 1 ? " pet" : " pets");
         }
     }
+
+    pesquisa.addEventListener("input", filtrar);
+    tipo.addEventListener("change", filtrar);
+    if (botao) botao.addEventListener("click", filtrar);
+
+    filtrar();
 });
 
+// ========================================
+// PESQUISA E FILTRO DE USUÁRIOS
+// ========================================
 
-/* ========================================
-   PESQUISA E FILTRO DE USUÁRIOS
-   ======================================== */
+
+// ========================================
+// PESQUISA E FILTRO DE USUÁRIOS
+// ========================================
 
 document.addEventListener("DOMContentLoaded", function () {
+    const pesquisa = document.getElementById("pesquisa");
+    const funcao = document.getElementById("funcao");
+    const botao = document.querySelector(".botao-filtrar");
 
-    const campoPesquisaUsuarios = document.getElementById("pesquisa");
-    const campoFuncao = document.getElementById("funcao");
-    const linhasUsuarios = document.querySelectorAll(
+    const linhas = document.querySelectorAll(
         ".tabela-usuarios tbody tr"
     );
-    const botaoFiltrarUsuarios = document.querySelector(
-        ".botao-filtrar"
-    );
 
-    // Executa somente na página de usuários
-    if (
-        !campoPesquisaUsuarios ||
-        !campoFuncao ||
-        linhasUsuarios.length === 0
-    ) {
+    if (!pesquisa || !funcao || linhas.length === 0) {
         return;
     }
 
-    function filtrarUsuarios() {
+    function filtrar() {
+        const texto = normalizarTexto(pesquisa.value);
+        const funcaoSelecionada = normalizarTexto(funcao.value);
 
-        const textoPesquisa = campoPesquisaUsuarios.value
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .trim();
-
-        const funcaoSelecionada = campoFuncao.value;
-
-        linhasUsuarios.forEach(function (linha) {
-
-            const textoLinha = linha.innerText
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "");
-
+        linhas.forEach(function (linha) {
+            const textoLinha = normalizarTexto(linha.innerText);
             const celulas = linha.querySelectorAll("td");
-            const funcaoUsuario = celulas[4].innerText
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .trim();
 
-            const correspondeTexto =
-                textoLinha.includes(textoPesquisa);
+            const funcaoUsuario = normalizarTexto(
+                celulas[4] ? celulas[4].innerText : ""
+            );
 
-            const correspondeFuncao =
+            const textoOK = textoLinha.includes(texto);
+
+            const funcaoOK =
                 funcaoSelecionada === "todos" ||
                 funcaoUsuario === funcaoSelecionada;
 
-            linha.hidden = !(
-                correspondeTexto && correspondeFuncao
-            );
+            linha.hidden = !(textoOK && funcaoOK);
         });
-    }
 
-    // Pesquisa enquanto digita
-    campoPesquisaUsuarios.addEventListener(
-        "input",
-        filtrarUsuarios
-    );
+        const quantidadeEncontrada = Array.from(linhas)
+            .filter(linha => !linha.hidden).length;
 
-    // Filtra quando a função é alterada
-    campoFuncao.addEventListener(
-        "change",
-        filtrarUsuarios
-    );
-
-    // Mantém o botão Filtrar funcionando
-    if (botaoFiltrarUsuarios) {
-        botaoFiltrarUsuarios.addEventListener(
-            "click",
-            filtrarUsuarios
+        const titulo = document.getElementById(
+            "titulo-lista-usuarios"
         );
+
+        const contador = document.getElementById(
+            "contador-usuarios"
+        );
+
+        const pesquisaAtiva =
+            pesquisa.value.trim() !== "" ||
+            funcaoSelecionada !== "todos";
+
+        const nomesFuncoes = {
+            cliente: ["Cliente", "Clientes"],
+            funcionario: ["Funcionário", "Funcionários"],
+            gerente: ["Gerente", "Gerentes"]
+        };
+
+        if (titulo) {
+            if (funcaoSelecionada !== "todos") {
+                const nomes = nomesFuncoes[funcaoSelecionada];
+
+                if (nomes) {
+                    titulo.textContent =
+                        nomes[quantidadeEncontrada === 1 ? 0 : 1]
+                        + " encontrados";
+
+                    if (quantidadeEncontrada === 1) {
+                        titulo.textContent =
+                            nomes[0] + " encontrado";
+                    }
+                } else {
+                    titulo.textContent =
+                        quantidadeEncontrada === 1
+                            ? "Usuário encontrado"
+                            : "Usuários encontrados";
+                }
+            } else if (pesquisaAtiva) {
+                titulo.textContent =
+                    quantidadeEncontrada === 1
+                        ? "Usuário encontrado"
+                        : "Usuários encontrados";
+            } else {
+                titulo.textContent = "Usuários cadastrados";
+            }
+        }
+
+        if (contador) {
+            if (funcaoSelecionada !== "todos" &&
+                nomesFuncoes[funcaoSelecionada]) {
+
+                const nomes = nomesFuncoes[funcaoSelecionada];
+
+                contador.textContent =
+                    quantidadeEncontrada + " " +
+                    nomes[quantidadeEncontrada === 1 ? 0 : 1]
+                        .toLowerCase();
+            } else {
+                contador.textContent =
+                    quantidadeEncontrada +
+                    (quantidadeEncontrada === 1
+                        ? " usuário"
+                        : " usuários");
+            }
+        }
     }
+
+    // Eventos configurados fora da função filtrar()
+    pesquisa.addEventListener("input", filtrar);
+    funcao.addEventListener("change", filtrar);
+
+    if (botao) {
+        botao.addEventListener("click", filtrar);
+    }
+
+    // Atualiza a lista ao abrir a página
+    filtrar();
 });
