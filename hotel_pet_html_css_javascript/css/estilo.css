@@ -3191,3 +3191,19 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     text-decoration: none;
     border-bottom: 2px solid #8b5e3c;
 }
+
+.reserva-card[hidden] {
+    display: none !important;
+}
+
+.pet-card[hidden] {
+    display: none !important;
+}
+
+.reserva-card[hidden] {
+    display: none !important;
+}
+
+.tabela-usuarios tr[hidden] {
+    display: none !important;
+}
