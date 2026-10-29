@@ -118,28 +118,49 @@ document.addEventListener("DOMContentLoaded", function () {
         const visiveis = Array.from(pets)
             .filter(item => !item.hidden).length;
 
+
         const titulo = document.getElementById("titulo-lista-pets");
         const contador = document.getElementById("contador-pets");
-        const pesquisaAtiva =
-            pesquisa.value.trim() !== "" ||
-            tipoSelecionado !== "todos";
+
+        const pesquisaAtiva = pesquisa.value.trim() !== "";
+        const quantidade = visiveis;
 
         if (titulo) {
             if (pesquisaAtiva) {
-                titulo.textContent = visiveis === 1
+                titulo.textContent = quantidade === 1
                     ? "Pet encontrado"
                     : "Pets encontrados";
+            } else if (tipoSelecionado === "cachorro") {
+                titulo.textContent = "Cachorros cadastrados";
+            } else if (tipoSelecionado === "gato") {
+                titulo.textContent = quantidade === 1
+                    ? "Gato cadastrado"
+                    : "Gatos cadastrados";
             } else {
-                titulo.textContent = visiveis === 1
-                    ? "Pet cadastrado"
-                    : "Pets cadastrados";
+                titulo.textContent = "Pets cadastrados";
             }
         }
 
         if (contador) {
-            contador.textContent =
-                visiveis + (visiveis === 1 ? " pet" : " pets");
+            let nomeTipo = "pets";
+
+            if (tipoSelecionado === "cachorro") {
+                nomeTipo = "cachorros";
+            } else if (tipoSelecionado === "gato") {
+                nomeTipo = "gatos";
+            }
+
+            if (quantidade === 1) {
+                nomeTipo = tipoSelecionado === "cachorro"
+                    ? "cachorro"
+                    : tipoSelecionado === "gato"
+                        ? "gato"
+                        : "pet";
+            }
+
+            contador.textContent = quantidade + " " + nomeTipo;
         }
+
     }
 
     pesquisa.addEventListener("input", filtrar);
