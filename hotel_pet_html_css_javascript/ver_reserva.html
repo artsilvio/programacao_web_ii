@@ -109,22 +109,22 @@
 
                     <div>
 
-                        <span class="codigo-reserva">
-                            Reserva 001
+                        <span class="codigo-reserva" id="codigo-reserva">
+                            Reserva
                         </span>
 
-                        <h3>
-                            Thor
+                        <h3 id="nome-pet-cabecalho">
+                            Nome do pet
                         </h3>
 
-                        <p>
-                            Cachorro
+                        <p id="tipo-pet-cabecalho">
+                            Tipo do pet
                         </p>
 
                     </div>
 
 
-                    <span class="status status-agendada">
+                    <span class="status status-agendada" id="status-reserva">
                         Agendada
                     </span>
 
@@ -137,7 +137,7 @@
 
                     <div class="imagem-pet">
 
-                        <img src="imagens/cachorro01.png" alt="Foto do cachorro Thor">
+                        <img id="foto-pet" src="" alt="Foto do pet">
 
                     </div>
 
@@ -155,8 +155,8 @@
                                 Nome
                             </span>
 
-                            <strong>
-                                Thor
+                            <strong id="nome-pet">
+                                Nome do pet
                             </strong>
 
                         </div>
@@ -168,8 +168,8 @@
                                 Tipo
                             </span>
 
-                            <strong>
-                                Cachorro
+                            <strong id="tipo-pet">
+                                Tipo do pet
                             </strong>
 
                         </div>
@@ -196,8 +196,8 @@
                                 Proprietário
                             </span>
 
-                            <strong>
-                                Carlos Oliveira
+                            <strong id="nome-proprietario">
+                                Nome do proprietário
                             </strong>
 
                         </div>
@@ -209,8 +209,8 @@
                                 Data de entrada
                             </span>
 
-                            <strong>
-                                20/08/2026
+                            <strong id="data-entrada">
+                                --
                             </strong>
 
                         </div>
@@ -222,8 +222,8 @@
                                 Data de saída
                             </span>
 
-                            <strong>
-                                25/08/2026
+                            <strong id="data-saida">
+                                --
                             </strong>
 
                         </div>
@@ -254,7 +254,7 @@
                         Observações
                     </h3>
 
-                    <p>
+                    <p id="observacoes-reserva">
                         Nenhuma observação cadastrada.
                     </p>
 
@@ -270,7 +270,7 @@
                     </a>
 
 
-                    <a href="editar_reserva.html" class="botao-principal">
+                    <a href="#" id="botao-editar-reserva" class="botao-principal">
                         Editar reserva
                     </a>
 
@@ -282,6 +282,7 @@
 
     </div>
     <script src="js/proteger_pagina.js"></script>
+    <script src="js/visualizar_reserva.js"></script>
     <script src="js/logout.js"></script>
 </body>
 

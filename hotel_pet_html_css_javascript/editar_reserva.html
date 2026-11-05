@@ -133,12 +133,13 @@
                     <div class="grupo-formulario">
 
 
-                        <h3>
-                            Reserva 001
+                        <h3 id="titulo-codigo-reserva">
+                            Editar reserva
                         </h3>
 
 
                         <div class="linha-formulario">
+
 
 
                             <div class="campo-formulario">
@@ -148,28 +149,12 @@
                                 </label>
 
                                 <select id="pet" name="pet" required>
-
-                                    <option value="thor" selected>
-                                        Thor
+                                    <option value="" selected disabled>
+                                        Carregando pets...
                                     </option>
-
-                                    <option value="mel">
-                                        Mel
-                                    </option>
-
-                                    <option value="nina">
-                                        Nina
-                                    </option>
-
-                                    <option value="simba">
-                                        Simba
-                                    </option>
-
                                 </select>
 
                             </div>
-
-
 
                             <div class="campo-formulario">
 
@@ -177,8 +162,11 @@
                                     Proprietário
                                 </label>
 
-                                <input type="text" id="proprietario" name="proprietario" value="Carlos Oliveira"
-                                    required>
+                                <select id="proprietario" name="proprietario" required>
+                                    <option value="" selected disabled>
+                                        Carregando proprietários...
+                                    </option>
+                                </select>
 
                             </div>
 

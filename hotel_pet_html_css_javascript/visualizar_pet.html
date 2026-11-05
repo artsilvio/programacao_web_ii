@@ -144,7 +144,7 @@
 
                         <div class="foto-pet-visualizacao">
 
-                            <img src="imagens/cachorro01.png" alt="Foto do cachorro Thor">
+                            <img id="foto-pet" src="" alt="Foto do pet">
 
                         </div>
 
@@ -161,9 +161,14 @@
                                     Nome
                                 </span>
 
-                                <strong>
+                                <strong id="nome-pet">
                                     Thor
                                 </strong>
+
+                                <div class="campo-visualizacao">
+                                    <span>Código</span>
+                                    <strong id="codigo-pet"></strong>
+                                </div>
 
                             </div>
 
@@ -174,7 +179,7 @@
                                     Tipo
                                 </span>
 
-                                <strong>
+                                <strong id="tipo-pet">
                                     Cachorro
                                 </strong>
 
@@ -187,7 +192,7 @@
                                     Raça
                                 </span>
 
-                                <strong>
+                                <strong id="raca-pet">
                                     Golden Retriever
                                 </strong>
 
@@ -200,7 +205,7 @@
                                     Tamanho
                                 </span>
 
-                                <strong>
+                                <strong id="tamanho-pet">
                                     Grande
                                 </strong>
 
@@ -227,7 +232,7 @@
                                     Nome
                                 </span>
 
-                                <strong>
+                                <strong id="nome-proprietario">
                                     Carlos Oliveira
                                 </strong>
 
@@ -317,7 +322,7 @@
                     </h3>
 
 
-                    <div class="campo-somente-leitura observacao-visualizacao">
+                    <div id="observacoes-pet" class="campo-somente-leitura observacao-visualizacao">
 
                         Nenhuma observação cadastrada.
 
@@ -340,7 +345,7 @@
                     </a>
 
 
-                    <a href="editar_pet.html" class="botao-principal">
+                    <a id="botao-editar-pet" href="#" class="botao-principal">
                         Editar pet
                     </a>
 
@@ -356,6 +361,7 @@
 
     </div>
     <script src="js/proteger_pagina.js"></script>
+    <script src="js/visualizar_pet.js"></script>
     <script src="js/logout.js"></script>
 </body>
 

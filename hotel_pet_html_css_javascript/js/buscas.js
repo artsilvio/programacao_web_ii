@@ -16,7 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const status = document.getElementById("status");
     const tipoPet = document.getElementById("tipo-pet");
     const botao = document.querySelector(".botao-filtrar");
-    const reservas = document.querySelectorAll(".reserva-card");
+    const reservas = document.querySelectorAll(
+        "#lista-reservas-container .reserva-card"
+    );
 
     if (!pesquisa || !status || reservas.length === 0) return;
 
@@ -29,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         reservas.forEach(function (reserva) {
             const textoReserva = normalizarTexto(reserva.innerText);
-            const statusElemento = reserva.querySelector(".status");
-            const tipoElemento = reserva.querySelector(".pet-reserva span");
+            const statusElemento = reserva.querySelector(".status-reserva");
+            const tipoElemento = reserva.querySelector(".tipo-pet-reserva");
 
             let statusReserva = normalizarTexto(
                 statusElemento ? statusElemento.innerText : ""
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 tipoElemento ? tipoElemento.innerText : ""
             );
 
-            const textoOK = textoReserva.includes(texto);
+            const textoOK = texto === "" || textoReserva.includes(texto);
             const statusOK =
                 statusSelecionado === "todos" ||
                 statusReserva === statusSelecionado;
@@ -52,11 +54,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 tipoSelecionado === "todos" ||
                 tipoReserva === tipoSelecionado;
 
-            reserva.hidden = !(textoOK && statusOK && tipoOK);
+            if (textoOK && statusOK && tipoOK) {
+                reserva.style.display = "";
+            } else {
+                reserva.style.display = "none";
+            }
         });
 
         const visiveis = Array.from(reservas)
-            .filter(item => !item.hidden).length;
+            .filter(item => item.style.display !== "none").length;
 
         const titulo = document.getElementById("titulo-lista-reservas");
         const contador = document.getElementById("contador-reservas");
@@ -89,91 +95,96 @@ document.addEventListener("DOMContentLoaded", function () {
 // ========================================
 
 document.addEventListener("DOMContentLoaded", function () {
+
     const pesquisa = document.getElementById("pesquisa");
     const tipo = document.getElementById("tipo");
     const botao = document.querySelector(".botao-filtrar");
-    const pets = document.querySelectorAll(".pet-card");
 
-    if (!pesquisa || !tipo || pets.length === 0) return;
+    if (!pesquisa || !tipo) return;
+
+    function normalizarTexto(texto) {
+        return (texto || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
 
     function filtrar() {
+
+        // Busca os cards atualizados a cada filtro.
+        const pets = document.querySelectorAll(
+            "#lista-pets-container .pet-card"
+        );
+
         const texto = normalizarTexto(pesquisa.value);
         const tipoSelecionado = normalizarTexto(tipo.value);
 
         pets.forEach(function (pet) {
+
             const textoPet = normalizarTexto(pet.innerText);
-            const elementoTipo = pet.querySelector(".dados-pet-card p");
+
+            const elementoTipo = pet.querySelector(
+                ".dados-pet-card p"
+            );
+
             const tipoPet = normalizarTexto(
                 elementoTipo ? elementoTipo.innerText : ""
             );
 
             const textoOK = textoPet.includes(texto);
+
             const tipoOK =
                 tipoSelecionado === "todos" ||
                 tipoPet === tipoSelecionado;
 
-            pet.hidden = !(textoOK && tipoOK);
+            if (textoOK && tipoOK) {
+                pet.style.display = "";
+            } else {
+                pet.style.display = "none";
+            }
+
         });
 
+        // Conta somente os pets visíveis.
         const visiveis = Array.from(pets)
-            .filter(item => !item.hidden).length;
+            .filter(pet => !pet.hidden).length;
 
-
-        const titulo = document.getElementById("titulo-lista-pets");
         const contador = document.getElementById("contador-pets");
 
-        const pesquisaAtiva = pesquisa.value.trim() !== "";
-        const quantidade = visiveis;
+        const titulo = document.getElementById("titulo-lista-pets");
 
         if (titulo) {
-            if (pesquisaAtiva) {
-                titulo.textContent = quantidade === 1
+            if (pesquisa.value.trim() !== "") {
+                titulo.textContent = visiveis === 1
                     ? "Pet encontrado"
                     : "Pets encontrados";
             } else if (tipoSelecionado === "cachorro") {
                 titulo.textContent = "Cachorros cadastrados";
             } else if (tipoSelecionado === "gato") {
-                titulo.textContent = quantidade === 1
-                    ? "Gato cadastrado"
-                    : "Gatos cadastrados";
+                titulo.textContent = "Gatos cadastrados";
             } else {
                 titulo.textContent = "Pets cadastrados";
             }
         }
 
         if (contador) {
-            let nomeTipo = "pets";
-
-            if (tipoSelecionado === "cachorro") {
-                nomeTipo = "cachorros";
-            } else if (tipoSelecionado === "gato") {
-                nomeTipo = "gatos";
-            }
-
-            if (quantidade === 1) {
-                nomeTipo = tipoSelecionado === "cachorro"
-                    ? "cachorro"
-                    : tipoSelecionado === "gato"
-                        ? "gato"
-                        : "pet";
-            }
-
-            contador.textContent = quantidade + " " + nomeTipo;
+            contador.textContent = visiveis +
+                (visiveis === 1 ? " pet" : " pets");
         }
 
     }
 
     pesquisa.addEventListener("input", filtrar);
     tipo.addEventListener("change", filtrar);
-    if (botao) botao.addEventListener("click", filtrar);
+
+    if (botao) {
+        botao.addEventListener("click", filtrar);
+    }
 
     filtrar();
+
 });
-
-// ========================================
-// PESQUISA E FILTRO DE USUÁRIOS
-// ========================================
-
 
 // ========================================
 // PESQUISA E FILTRO DE USUÁRIOS
