@@ -2952,33 +2952,58 @@ input[type="file"]::-webkit-file-upload-button {
 
 
 /* =========================================================
-   AÇÕES
+   AÇÕES DA TABELA DE USUÁRIOS
    ========================================================= */
 
-.acoes-tabela {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 5px;
+/* Mantém a célula como célula de tabela para não invadir Status */
+.tabela-usuarios td.acoes-tabela {
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
 }
 
-
-.acoes-tabela a {
-    color: #925f3b;
-
+/* Botões lado a lado e centralizados */
+.tabela-usuarios td.acoes-tabela .acao-botao {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 7px;
+    margin: 2px;
+    border-radius: 4px;
     text-decoration: none;
-
-    font-size: 14px;
-
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: filter 0.2s ease;
 }
 
+.acao-editar {
+    background-color: #e3f2fd;
+    color: #1565c0 !important;
+}
 
-.acoes-tabela a:hover {
-    text-decoration: underline;
+.acao-excluir {
+    background-color: #ffebee;
+    color: #c62828 !important;
+}
+
+.acao-inativar {
+    background-color: #fff3e0;
+    color: #e65100 !important;
+}
+
+.acao-ativar {
+    background-color: #e8f5e9;
+    color: #2e7d32 !important;
+}
+
+.tabela-usuarios td.acoes-tabela .acao-botao:hover {
+    filter: brightness(0.93);
+    text-decoration: none;
+}
+
+/* Centraliza também o título da coluna Ações */
+.tabela-usuarios thead th:nth-child(7) {
+    text-align: center;
 }
 
 
@@ -3192,73 +3217,18 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-bottom: 2px solid #8b5e3c;
 }
 
-.reserva-card[hidden] {
-    display: none !important;
-}
-
-.pet-card[hidden] {
-    display: none !important;
-}
-
-.reserva-card[hidden] {
-    display: none !important;
-}
-
-.tabela-usuarios tr[hidden] {
-    display: none !important;
-}
-
-
-/* =========================================================
-   AJUSTE DOS FILTROS DE RESERVAS (pesquisa, status, tipo e botão)
-   ========================================================= */
-.filtros:has(#tipo-pet) {
+/* Organização dos filtros */
+.filtros {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) 180px 180px 120px;
+    grid-template-columns: minmax(0, 1fr) 220px 220px 110px;
     gap: 16px;
     align-items: end;
 }
 
-.filtros:has(#tipo-pet) .campo-pesquisa {
-    min-width: 0;
-}
-
-.filtros:has(#tipo-pet) .campo-status {
-    width: auto;
-    min-width: 0;
-}
-
-.filtros:has(#tipo-pet) .botao-filtrar {
-    width: 100%;
-    white-space: nowrap;
-}
-
-@media (max-width: 850px) {
-    .filtros:has(#tipo-pet) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    }
-
-    .filtros:has(#tipo-pet) .campo-pesquisa {
-        grid-column: 1 / -1;
-    }
-
-    .filtros:has(#tipo-pet) .botao-filtrar {
-        grid-column: 1 / -1;
-    }
-}
-
-@media (max-width: 520px) {
-    .filtros:has(#tipo-pet) {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .filtros:has(#tipo-pet) .campo-pesquisa,
-    .filtros:has(#tipo-pet) .botao-filtrar {
-        grid-column: auto;
-    }
-}
-
-/* Garante que os cartões filtrados desapareçam */
-[hidden] {
-    display: none !important;
+/* Botão Filtrar */
+.filtros .botao-filtrar {
+    grid-column: auto;
+    width: 110px;
+    height: 40px;
+    padding: 0 12px;
 }

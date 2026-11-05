@@ -1,34 +1,63 @@
 
-// Valida os campos de login e senha antes de acessar a tela de reservas.
+// Aguarda o carregamento da página.
+document.addEventListener("DOMContentLoaded", function () {
 
-// Obtém o botão de login pelo seu identificador.
-const btnLogin = document.getElementById("btn-login");
+    // Obtém o botão de login.
+    const btnLogin = document.getElementById("btn-login");
 
-// Verifica se o botão de login existe nesta página.
-if (btnLogin) {
+    if (btnLogin) {
 
-    // Adiciona um evento de clique ao botão de login.
-    btnLogin.addEventListener("click", function () {
+        btnLogin.addEventListener("click", function () {
 
-        // Obtém os valores digitados, removendo espaços das extremidades.
-        const loginValor = document.getElementById("login").value.trim();
-        const senhaValor = document.getElementById("senha").value.trim();
+            // Recupera os dados digitados.
+            const loginValor = document.getElementById("login").value.trim();
+            const senhaValor = document.getElementById("senha").value.trim();
 
-        // Verifica se ambos os campos estão vazios.
-        if (loginValor === "" && senhaValor === "") {
-            alert("Por favor, informe o usuário e a senha.");
+            // Verifica se os campos foram preenchidos.
+            if (loginValor === "" || senhaValor === "") {
+                alert("Informe o usuário e a senha.");
+                return;
+            }
 
-            // Verifica se o campo de usuário está vazio.
-        } else if (loginValor === "") {
-            alert("Por favor, informe o usuário.");
+            // Recupera os usuários cadastrados.
+            const usuarios = JSON.parse(
+                localStorage.getItem("usuarios")
+            ) || [];
 
-            // Verifica se o campo de senha está vazio.
-        } else if (senhaValor === "") {
-            alert("Por favor, informe a senha.");
+            // Procura o usuário pelo login e senha.
+            const usuarioEncontrado = usuarios.find(function (usuario) {
+                return usuario.login.toLowerCase() === loginValor.toLowerCase()
+                    && usuario.senha === senhaValor;
+            });
 
-            // Se ambos estiverem preenchidos, abre a tela de reservas.
-        } else {
+            // Verifica se o usuário existe.
+            if (!usuarioEncontrado) {
+                alert("Usuário ou senha incorretos!");
+                return;
+            }
+
+            // Verifica se o usuário está ativo.
+            if (usuarioEncontrado.status !== "ativo") {
+                alert("Este usuário está inativo. Procure o administrador.");
+                return;
+            }
+
+            // Verifica se o usuário possui função de gerente.
+            if (usuarioEncontrado.funcao !== "gerente") {
+                alert("Acesso permitido somente para usuários com função de gerente.");
+                return;
+            }
+
+            // Registra o código do usuário conectado.
+            localStorage.setItem(
+                "usuarioLogado",
+                usuarioEncontrado.codigo
+            );
+
+            alert("Bem-vindo(a), " + usuarioEncontrado.nome + "!");
+
+            // Acessa a página de reservas.
             window.location.href = "reservas.html";
-        }
-    });
-}
+        });
+    }
+});

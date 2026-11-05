@@ -180,23 +180,37 @@ document.addEventListener("DOMContentLoaded", function () {
 // ========================================
 
 document.addEventListener("DOMContentLoaded", function () {
+
     const pesquisa = document.getElementById("pesquisa");
     const funcao = document.getElementById("funcao");
     const botao = document.querySelector(".botao-filtrar");
 
-    const linhas = document.querySelectorAll(
-        ".tabela-usuarios tbody tr"
-    );
-
-    if (!pesquisa || !funcao || linhas.length === 0) {
+    // Verifica se estamos na página de usuários
+    if (!pesquisa || !funcao) {
         return;
     }
 
+    // Remove acentos e padroniza o texto
+    function normalizarTexto(texto) {
+        return texto
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
     function filtrar() {
+
+        // Busca as linhas sempre que o filtro é executado
+        const linhas = document.querySelectorAll(
+            ".tabela-usuarios tbody tr"
+        );
+
         const texto = normalizarTexto(pesquisa.value);
         const funcaoSelecionada = normalizarTexto(funcao.value);
 
         linhas.forEach(function (linha) {
+
             const textoLinha = normalizarTexto(linha.innerText);
             const celulas = linha.querySelectorAll("td");
 
@@ -213,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
             linha.hidden = !(textoOK && funcaoOK);
         });
 
+        // Conta somente os usuários visíveis
         const quantidadeEncontrada = Array.from(linhas)
             .filter(linha => !linha.hidden).length;
 
@@ -234,46 +249,51 @@ document.addEventListener("DOMContentLoaded", function () {
             gerente: ["Gerente", "Gerentes"]
         };
 
+        // Atualiza o título
         if (titulo) {
+
             if (funcaoSelecionada !== "todos") {
+
                 const nomes = nomesFuncoes[funcaoSelecionada];
 
                 if (nomes) {
                     titulo.textContent =
-                        nomes[quantidadeEncontrada === 1 ? 0 : 1]
-                        + " encontrados";
-
-                    if (quantidadeEncontrada === 1) {
-                        titulo.textContent =
-                            nomes[0] + " encontrado";
-                    }
-                } else {
-                    titulo.textContent =
                         quantidadeEncontrada === 1
-                            ? "Usuário encontrado"
-                            : "Usuários encontrados";
+                            ? nomes[0] + " encontrado"
+                            : nomes[1] + " encontrados";
                 }
+
             } else if (pesquisaAtiva) {
+
                 titulo.textContent =
                     quantidadeEncontrada === 1
                         ? "Usuário encontrado"
                         : "Usuários encontrados";
+
             } else {
+
                 titulo.textContent = "Usuários cadastrados";
             }
         }
 
+        // Atualiza o contador
         if (contador) {
-            if (funcaoSelecionada !== "todos" &&
-                nomesFuncoes[funcaoSelecionada]) {
+
+            if (
+                funcaoSelecionada !== "todos" &&
+                nomesFuncoes[funcaoSelecionada]
+            ) {
 
                 const nomes = nomesFuncoes[funcaoSelecionada];
 
                 contador.textContent =
                     quantidadeEncontrada + " " +
-                    nomes[quantidadeEncontrada === 1 ? 0 : 1]
-                        .toLowerCase();
+                    (quantidadeEncontrada === 1
+                        ? nomes[0].toLowerCase()
+                        : nomes[1].toLowerCase());
+
             } else {
+
                 contador.textContent =
                     quantidadeEncontrada +
                     (quantidadeEncontrada === 1
@@ -283,14 +303,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Eventos configurados fora da função filtrar()
+    // Pesquisa enquanto digita
     pesquisa.addEventListener("input", filtrar);
+
+    // Filtra quando a função é alterada
     funcao.addEventListener("change", filtrar);
 
+    // Mantém o botão Filtrar funcionando
     if (botao) {
         botao.addEventListener("click", filtrar);
     }
 
-    // Atualiza a lista ao abrir a página
     filtrar();
 });
