@@ -1,51 +1,128 @@
-// Recupera o código da reserva pela URL.
-const parametros = new URLSearchParams(window.location.search);
-const codigoReserva = parametros.get("codigo");
 
-// Recupera os dados do localStorage.
-const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-const pets = JSON.parse(localStorage.getItem("pets")) || [];
-const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+(function () {
 
-// Localiza a reserva selecionada.
-const reserva = reservas.find(function (item) {
-    return item.codigo === codigoReserva;
-});
+    // ========================================
+    // IDENTIFICAÇÃO DO USUÁRIO LOGADO
+    // ========================================
 
-// Verifica se a reserva existe.
-if (!reserva) {
-    alert("Reserva não encontrada!");
-    window.location.href = "reservas.html";
-} else {
+    const codigoUsuarioLogado = localStorage.getItem("usuarioLogado");
 
-    // Localiza os campos do formulário.
+    const usuarios = JSON.parse(
+        localStorage.getItem("usuarios")
+    ) || [];
+
+    const usuarioLogado = usuarios.find(function (item) {
+        return item.codigo === codigoUsuarioLogado;
+    });
+
+    // Verifica se o usuário está autorizado.
+    if (
+        !usuarioLogado ||
+        usuarioLogado.status !== "ativo" ||
+        !["cliente", "funcionario", "gerente"].includes(usuarioLogado.funcao)
+    ) {
+        alert("Acesso não autorizado!");
+        window.location.replace("index.html");
+        return;
+    }
+
+    // ========================================
+    // RECUPERAÇÃO DA RESERVA
+    // ========================================
+
+    const parametros = new URLSearchParams(window.location.search);
+    const codigoReserva = parametros.get("codigo");
+
+    const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    const pets = JSON.parse(localStorage.getItem("pets")) || [];
+
+    const reserva = reservas.find(function (item) {
+        return item.codigo === codigoReserva;
+    });
+
+    if (!reserva) {
+        alert("Reserva não encontrada!");
+        window.location.href = "reservas.html";
+        return;
+    }
+
+    // ========================================
+    // LOCALIZAÇÃO DOS CAMPOS
+    // ========================================
+
+    const formEditarReserva = document.getElementById("form-editar-reserva");
+
     const campoPet = document.getElementById("pet");
     const campoProprietario = document.getElementById("proprietario");
+    const campoEntrada = document.getElementById("entrada");
+    const campoSaida = document.getElementById("saida");
+    const campoValor = document.getElementById("valor");
+    const campoStatus = document.getElementById("status");
+    const campoObservacoes = document.getElementById("observacoes");
 
-    // Preenche o título com o código da reserva.
+    const botaoSalvar = formEditarReserva.querySelector(
+        'button[type="submit"]'
+    );
+
+    // ========================================
+    // VERIFICAÇÃO DAS PERMISSÕES
+    // ========================================
+
+    const podeEditarReserva =
+        usuarioLogado.funcao === "gerente" ||
+        reserva.status !== "finalizada";
+
+    // Se a reserva estiver finalizada,
+    // somente o gerente poderá editar.
+    if (!podeEditarReserva) {
+
+        const campos = formEditarReserva.querySelectorAll(
+            "input, select, textarea"
+        );
+
+        campos.forEach(function (campo) {
+            campo.disabled = true;
+        });
+
+        // Oculta o botão Salvar alterações.
+        botaoSalvar.style.display = "none";
+
+        // Atualiza a mensagem da página.
+        document.querySelector(".titulo-pagina p").textContent =
+            "Reserva finalizada. Você pode apenas visualizar os dados.";
+    }
+
+    // ========================================
+    // PREENCHE OS DADOS DA RESERVA
+    // ========================================
+
     document.getElementById("titulo-codigo-reserva").textContent =
         "Editar reserva " + reserva.codigo;
 
     // Carrega os pets cadastrados.
     pets.forEach(function (pet) {
+
         const opcao = document.createElement("option");
+
         opcao.value = pet.codigo;
         opcao.textContent = pet.nome;
+
         campoPet.appendChild(opcao);
     });
 
     // Carrega os proprietários cadastrados.
     usuarios.forEach(function (usuario) {
+
         const opcao = document.createElement("option");
+
         opcao.value = usuario.codigo;
         opcao.textContent = usuario.nome;
+
         campoProprietario.appendChild(opcao);
     });
 
-    // Seleciona o pet da reserva.
+    // Seleciona o pet e o proprietário.
     campoPet.value = reserva.pet;
-
-    // Seleciona o proprietário da reserva.
     campoProprietario.value = reserva.proprietario;
 
     // Atualiza o proprietário quando o pet mudar.
@@ -60,45 +137,45 @@ if (!reserva) {
         }
     });
 
-    // Preenche as datas.
-    document.getElementById("entrada").value = reserva.entrada;
-    document.getElementById("saida").value = reserva.saida;
+    // Preenche os demais campos.
+    campoEntrada.value = reserva.entrada;
+    campoSaida.value = reserva.saida;
+    campoStatus.value = reserva.status;
+    campoValor.value = reserva.valor || "";
+    campoObservacoes.value = reserva.observacoes || "";
 
-    // Preenche o status.
-    document.getElementById("status").value = reserva.status;
+    // ========================================
+    // SALVAMENTO DA RESERVA
+    // ========================================
 
-    // Preenche o valor, se existir.
-    document.getElementById("valor").value = reserva.valor || "";
+    formEditarReserva.addEventListener("submit", function (evento) {
 
-    // Preenche as observações.
-    document.getElementById("observacoes").value =
-        reserva.observacoes || "";
-}
+        evento.preventDefault();
 
-// Obtém o formulário de edição.
-const formEditarReserva = document.getElementById("form-editar-reserva");
+        // Proteção adicional antes de salvar.
+        if (
+            usuarioLogado.funcao !== "gerente" &&
+            reserva.status === "finalizada"
+        ) {
+            alert("Você não tem permissão para editar uma reserva finalizada.");
+            return;
+        }
 
-// Salva as alterações da reserva.
-formEditarReserva.addEventListener("submit", function (evento) {
+        // Atualiza os dados da reserva.
+        reserva.pet = campoPet.value;
+        reserva.proprietario = campoProprietario.value;
+        reserva.entrada = campoEntrada.value;
+        reserva.saida = campoSaida.value;
+        reserva.status = campoStatus.value;
+        reserva.observacoes = campoObservacoes.value;
+        reserva.valor = campoValor.value;
 
-    evento.preventDefault();
+        // Grava as alterações no localStorage.
+        localStorage.setItem("reservas", JSON.stringify(reservas));
 
-    // Atualiza os dados da reserva existente.
-    reserva.pet = campoPet.value;
-    reserva.proprietario = campoProprietario.value;
-    reserva.entrada = document.getElementById("entrada").value;
-    reserva.saida = document.getElementById("saida").value;
-    reserva.status = document.getElementById("status").value;
-    reserva.observacoes = document.getElementById("observacoes").value;
+        alert("Reserva " + reserva.codigo + " atualizada com sucesso!");
 
-    // Atualiza o valor da hospedagem.
-    reserva.valor = document.getElementById("valor").value;
+        window.location.href = "reservas.html";
+    });
 
-    // Grava as alterações no localStorage.
-    localStorage.setItem("reservas", JSON.stringify(reservas));
-
-    alert("Reserva " + reserva.codigo + " atualizada com sucesso!");
-
-    // Retorna para a listagem.
-    window.location.href = "reservas.html";
-});
+})();

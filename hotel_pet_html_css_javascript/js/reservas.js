@@ -1,7 +1,22 @@
 // Recupera as reservas cadastradas.
 const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+// Recupera o código do usuário logado.
+const codigoUsuarioLogado = localStorage.getItem("usuarioLogado");
+
+// Localiza o usuário conectado.
+const usuarioLogado = JSON.parse(localStorage.getItem("usuarios") || "[]")
+    .find(function (item) {
+        return item.codigo === codigoUsuarioLogado;
+    });
+
+// Filtra as reservas conforme a função do usuário.
+const reservasVisiveis = usuarioLogado.funcao === "cliente"
+    ? reservas.filter(function (reserva) {
+        return reserva.proprietario === codigoUsuarioLogado;
+    })
+    : reservas;
 // Ordena as reservas pelo código.
-reservas.sort(function (a, b) {
+reservasVisiveis.sort(function (a, b) {
     return a.codigo.localeCompare(b.codigo);
 });
 
@@ -19,7 +34,15 @@ const contadorReservas = document.getElementById("contador-reservas");
 
 // Atualiza o contador.
 contadorReservas.textContent =
-    reservas.length + (reservas.length === 1 ? " reserva" : " reservas");
+    reservasVisiveis.length + (reservasVisiveis.length <= 1 ? " reserva" : " reservas");
+
+// Atualiza o título conforme a quantidade de reservas.
+const tituloReservas = document.getElementById("titulo-lista-reservas");
+
+tituloReservas.textContent =
+    reservasVisiveis.length <= 1
+        ? "Reserva cadastrada"
+        : "Reservas cadastradas";
 
 console.log("Reservas:", reservas);
 console.log("Pets:", pets);
@@ -36,7 +59,7 @@ function formatarData(data) {
 }
 
 // Exibe as reservas cadastradas.
-reservas.forEach(function (reserva) {
+reservasVisiveis.forEach(function (reserva) {
 
     // Localiza o pet da reserva.
     const pet = pets.find(function (item) {

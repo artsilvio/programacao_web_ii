@@ -5,6 +5,31 @@
 
 const formSalvarUsuario = document.getElementById("form-salvar-usuario");
 
+// Identifica o usuário conectado.
+const codigoLogado = localStorage.getItem("usuarioLogado");
+
+const usuariosLogados = JSON.parse(
+    localStorage.getItem("usuarios")
+) || [];
+
+const usuarioLogado = usuariosLogados.find(function (usuario) {
+    return usuario.codigo === codigoLogado;
+});
+
+// Controla as opções de função conforme o perfil.
+const campoFuncao = document.getElementById("funcao");
+
+if (usuarioLogado && usuarioLogado.funcao === "funcionario") {
+
+    // Funcionário só pode cadastrar clientes.
+    campoFuncao.innerHTML = `
+        <option value="cliente">Cliente</option>
+    `;
+
+    campoFuncao.value = "cliente";
+    campoFuncao.disabled = true;
+}
+
 formSalvarUsuario.addEventListener("submit", function (evento) {
 
     evento.preventDefault();
@@ -13,7 +38,21 @@ formSalvarUsuario.addEventListener("submit", function (evento) {
     const nome = document.getElementById("nome").value.trim();
     const login = document.getElementById("login").value.trim();
     const email = document.getElementById("email").value.trim();
-    const funcao = document.getElementById("funcao").value;
+    // Verifica se o usuário conectado está autorizado.
+    if (
+        !usuarioLogado ||
+        usuarioLogado.status !== "ativo" ||
+        !["funcionario", "gerente"].includes(usuarioLogado.funcao)
+    ) {
+        alert("Você não tem permissão para cadastrar usuários.");
+        window.location.replace("reservas.html");
+        return;
+    }
+
+    // Somente o gerente pode cadastrar funcionários ou gerentes.
+    const funcao = usuarioLogado.funcao === "gerente"
+        ? document.getElementById("funcao").value
+        : "cliente";
     const senha = document.getElementById("senha").value;
     const confirmarSenha = document.getElementById("confirmar_senha").value;
     const status = document.getElementById("status").value;

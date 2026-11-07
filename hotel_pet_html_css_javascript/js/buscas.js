@@ -155,16 +155,31 @@ document.addEventListener("DOMContentLoaded", function () {
         const titulo = document.getElementById("titulo-lista-pets");
 
         if (titulo) {
+
             if (pesquisa.value.trim() !== "") {
+
                 titulo.textContent = visiveis === 1
                     ? "Pet encontrado"
                     : "Pets encontrados";
+
             } else if (tipoSelecionado === "cachorro") {
-                titulo.textContent = "Cachorros cadastrados";
+
+                titulo.textContent = visiveis <= 1
+                    ? "Cachorro cadastrado"
+                    : "Cachorros cadastrados";
+
             } else if (tipoSelecionado === "gato") {
-                titulo.textContent = "Gatos cadastrados";
+
+                titulo.textContent = visiveis <= 1
+                    ? "Gato cadastrado"
+                    : "Gatos cadastrados";
+
             } else {
-                titulo.textContent = "Pets cadastrados";
+
+                titulo.textContent = visiveis <= 1
+                    ? "Pet cadastrado"
+                    : "Pets cadastrados";
+
             }
         }
 

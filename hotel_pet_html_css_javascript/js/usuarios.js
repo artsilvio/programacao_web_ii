@@ -68,6 +68,13 @@ function salvarUsuarios() {
 // Salva os dados iniciais ou recuperados
 salvarUsuarios();
 
+// Identifica o usuário conectado.
+const codigoLogado = localStorage.getItem("usuarioLogado");
+
+const usuarioLogado = usuarios.find(function (item) {
+    return item.codigo === codigoLogado;
+});
+
 // ========================================
 // EXIBIR USUÁRIOS NA TABELA
 // ========================================
@@ -138,6 +145,18 @@ function renderizarUsuarios() {
 
             evento.preventDefault();
 
+            // Verifica a permissão para excluir.
+            if (
+                usuarioLogado.funcao === "funcionario" &&
+                (
+                    usuario.funcao !== "cliente" ||
+                    usuario.codigo === usuarioLogado.codigo
+                )
+            ) {
+                alert("Funcionários só podem excluir cadastros de clientes.");
+                return;
+            }
+
             const confirmar = confirm(
                 "Deseja realmente excluir o usuário " + usuario.nome + "?"
             );
@@ -192,6 +211,18 @@ function renderizarUsuarios() {
 
             evento.preventDefault();
 
+            // Verifica a permissão para alterar o status.
+            if (
+                usuarioLogado.funcao === "funcionario" &&
+                (
+                    usuario.funcao !== "cliente" ||
+                    usuario.codigo === usuarioLogado.codigo
+                )
+            ) {
+                alert("Funcionários só podem alterar o status de clientes.");
+                return;
+            }
+
             // Alterna o status do usuário
             usuario.status = usuario.status === "ativo" ? "inativo" : "ativo";
 
@@ -203,9 +234,41 @@ function renderizarUsuarios() {
 
         });
 
-        acoes.appendChild(linkEditar);
-        acoes.appendChild(linkExcluir);
-        acoes.appendChild(linkStatus);
+        // Controla as ações conforme a função do usuário conectado.
+
+        if (usuarioLogado) {
+
+            // GERENTE: pode realizar todas as operações.
+            if (usuarioLogado.funcao === "gerente") {
+
+                acoes.appendChild(linkEditar);
+                acoes.appendChild(linkExcluir);
+                acoes.appendChild(linkStatus);
+
+            }
+
+            // FUNCIONÁRIO: permissões limitadas.
+            else if (usuarioLogado.funcao === "funcionario") {
+
+                // Pode editar o próprio cadastro e o de clientes.
+                if (
+                    usuario.codigo === usuarioLogado.codigo ||
+                    usuario.funcao === "cliente"
+                ) {
+                    acoes.appendChild(linkEditar);
+                }
+
+                // Só pode excluir clientes, nunca a si mesmo.
+                if (
+                    usuario.funcao === "cliente" &&
+                    usuario.codigo !== usuarioLogado.codigo
+                ) {
+                    acoes.appendChild(linkExcluir);
+                    acoes.appendChild(linkStatus);
+                }
+
+            }
+        }
 
         // Adiciona todas as células à linha
         linha.appendChild(codigo);

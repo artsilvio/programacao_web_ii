@@ -42,9 +42,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Verifica se o usuário possui função de gerente.
-            if (usuarioEncontrado.funcao !== "gerente") {
-                alert("Acesso permitido somente para usuários com função de gerente.");
+            // Verifica se o usuário possui uma função válida.
+            if (
+                !["cliente", "funcionario", "gerente"].includes(usuarioEncontrado.funcao)
+            ) {
+                alert("Função de usuário inválida. Procure o administrador.");
                 return;
             }
 

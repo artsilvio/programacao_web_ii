@@ -23,15 +23,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Verifica se o usuário existe e é gerente ativo.
-    if (!usuario || usuario.funcao !== "gerente" || usuario.status !== "ativo") {
+    // Verifica se o usuário existe e está ativo.
+    if (
+        !usuario ||
+        usuario.status !== "ativo" ||
+        !["cliente", "funcionario", "gerente"].includes(usuario.funcao)
+    ) {
         alert("Acesso não autorizado. Faça login novamente.");
         localStorage.removeItem("usuarioLogado");
         window.location.href = "index.html";
         return;
     }
 
-    // Preenche os campos com os dados da gerente.
+    // Preenche os campos com os dados do usuário conectado.
     document.getElementById("nome").value = usuario.nome;
     document.getElementById("email").value = usuario.email;
     document.getElementById("login").value = usuario.login;

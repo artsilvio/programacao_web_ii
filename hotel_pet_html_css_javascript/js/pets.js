@@ -10,16 +10,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Recupera os pets e usuários do localStorage.
     const pets = JSON.parse(localStorage.getItem("pets")) || [];
-    // Ordena os pets pelo código
-    pets.sort((a, b) => a.codigo.localeCompare(b.codigo));
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
+    // Recupera o código do usuário logado.
+    const codigoUsuarioLogado = localStorage.getItem("usuarioLogado");
+
+    // Localiza o usuário conectado.
+    const usuarioLogado = usuarios.find(function (item) {
+        return item.codigo === codigoUsuarioLogado;
+    });
+
+    // Filtra os Pets conforme a função do usuário.
+    const petsVisiveis = usuarioLogado.funcao === "cliente"
+        ? pets.filter(function (pet) {
+            return pet.proprietario === codigoUsuarioLogado;
+        })
+        : pets;
+
+    // Ordena os Pets pelo código.
+    petsVisiveis.sort((a, b) => a.codigo.localeCompare(b.codigo));
+
     // Atualiza o contador.
-    contadorPets.textContent = pets.length +
-        (pets.length === 1 ? " pet" : " pets");
+    contadorPets.textContent = petsVisiveis.length +
+        (petsVisiveis.length <= 1 ? " pet" : " pets");
+
+    // Atualiza o título conforme a quantidade de Pets.
+    const tituloPets = document.getElementById("titulo-lista-pets");
+
+    tituloPets.textContent =
+        petsVisiveis.length <= 1
+            ? "Pet cadastrado"
+            : "Pets cadastrados";
 
     // Verifica se existem pets cadastrados.
-    if (pets.length === 0) {
+    if (petsVisiveis.length === 0) {
 
         listaPets.innerHTML = "<p>Nenhum pet cadastrado.</p>";
         return;
@@ -27,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Localiza o proprietário de cada pet.
-    pets.forEach(function (pet) {
+    petsVisiveis.forEach(function (pet) {
 
         const proprietario = usuarios.find(usuario =>
             usuario.codigo === pet.proprietario
