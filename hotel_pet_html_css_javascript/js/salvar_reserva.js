@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const pets = JSON.parse(localStorage.getItem("pets")) || [];
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    // Recupera o valor da diária configurado pelo gerente
     const configuracoes = JSON.parse(
         localStorage.getItem("configuracoes") || "{}"
     );
 
     const valorDiaria = Number(configuracoes.valorDiaria);
+    const capacidade = Number(configuracoes.capacidade);
 
     // Formata valores monetários
     function formatarMoeda(valor) {
@@ -115,6 +115,41 @@ document.addEventListener("DOMContentLoaded", function () {
     campoEntrada.addEventListener("change", calcularHospedagem);
     campoSaida.addEventListener("change", calcularHospedagem);
 
+    // Verifica a quantidade de vagas ocupadas no período
+    function verificarVagas(entrada, saida, reservas) {
+
+        for (
+            let dia = new Date(entrada);
+            dia < saida;
+            dia.setDate(dia.getDate() + 1)
+        ) {
+
+            const dataAtual = dia.toISOString().slice(0, 10);
+
+            const vagasOcupadas = reservas.filter(function (reserva) {
+
+                if (
+                    reserva.status !== "agendada" &&
+                    reserva.status !== "andamento"
+                ) {
+                    return false;
+                }
+
+                return (
+                    reserva.entrada <= dataAtual &&
+                    reserva.saida > dataAtual
+                );
+
+            }).length;
+
+            if (vagasOcupadas >= capacidade) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Obtém o formulário
     const formFazerReserva = document.getElementById("form-fazer-reserva");
 
@@ -125,6 +160,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!Number.isFinite(valorDiaria) || valorDiaria <= 0) {
             alert("O valor da diária não está configurado. Solicite ao gerente que configure o valor antes de cadastrar uma reserva.");
+            return;
+        }
+
+        if (!Number.isInteger(capacidade) || capacidade <= 0) {
+            alert("A capacidade de hospedagem não está configurada corretamente.");
+            return;
+        }
+
+        if (!campoEntrada.value || !campoSaida.value) {
+            alert("Informe as datas de entrada e saída.");
             return;
         }
 
@@ -144,6 +189,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Recupera as reservas existentes
         const reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+
+        // Verifica se existem vagas no período
+        const vagasDisponiveis = verificarVagas(
+            entrada,
+            saida,
+            reservas
+        );
+
+        if (!vagasDisponiveis) {
+            alert("Não há vagas disponíveis para todo o período selecionado. Escolha outras datas.");
+            return;
+        }
 
         // Gera o próximo código
         const maiorNumero = reservas.reduce(function (maior, reserva) {
@@ -183,7 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         alert("Reserva " + codigoReserva + " cadastrada com sucesso!");
 
-        // Pergunta se deseja cadastrar outra reserva
         const fazerOutra = confirm(
             "Deseja cadastrar outra reserva?"
         );
