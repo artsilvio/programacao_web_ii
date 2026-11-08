@@ -33,6 +33,70 @@ document.addEventListener("DOMContentLoaded", function () {
     const fotoAtual = document.getElementById("foto-atual");
     const observacoes = document.getElementById("observacoes");
     const formulario = document.getElementById("form-editar-pet");
+    // =================================================
+    // LISTAS DE RAÇAS
+    // =================================================
+
+    const racasPets = {
+
+        // Raças de cachorros.
+        cachorro: [
+            "Akita",
+            "Beagle",
+            "Bichon Frisé",
+            "Border Collie",
+            "Boxer",
+            "Bulldog Francês",
+            "Bulldog Inglês",
+            "Bull Terrier",
+            "Cane Corso",
+            "Chihuahua",
+            "Chow Chow",
+            "Cocker Spaniel",
+            "Dachshund (Salsicha)",
+            "Dálmata",
+            "Doberman",
+            "Golden Retriever",
+            "Husky Siberiano",
+            "Labrador Retriever",
+            "Lhasa Apso",
+            "Maltês",
+            "Pastor Alemão",
+            "Pastor Australiano",
+            "Pinscher",
+            "Pit Bull",
+            "Poodle",
+            "Pug",
+            "Rottweiler",
+            "Schnauzer",
+            "Shih Tzu",
+            "Spitz Alemão",
+            "Yorkshire Terrier",
+            "SRD (Sem Raça Definida)",
+            "Outra raça"
+        ],
+
+        // Raças de gatos.
+        gato: [
+            "Abissínio",
+            "Angorá",
+            "Azul Russo",
+            "Bengal",
+            "Birmanês",
+            "British Shorthair",
+            "Maine Coon",
+            "Norueguês da Floresta",
+            "Persa",
+            "Ragdoll",
+            "Siamês",
+            "Sphynx",
+            "Scottish Fold",
+            "Siberiano",
+            "SRD (Sem Raça Definida)",
+            "Outra raça"
+        ]
+
+    };
 
     // =================================================
     // CARREGAR PROPRIETÁRIOS ATIVOS
@@ -54,12 +118,72 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // =================================================
+    // CARREGAR RAÇAS CONFORME O TIPO DE PET
+    // =================================================
+
+    function carregarRacas(tipoSelecionado, racaAtual) {
+
+        // Limpa as opções anteriores.
+        raca.innerHTML = "";
+
+        // Cria a opção inicial.
+        const opcaoInicial = document.createElement("option");
+
+        opcaoInicial.value = "";
+        opcaoInicial.textContent = "Selecione a raça";
+        opcaoInicial.disabled = true;
+
+        raca.appendChild(opcaoInicial);
+
+        // Recupera as raças do tipo selecionado.
+        const racasDisponiveis = racasPets[tipoSelecionado] || [];
+
+        // Adiciona as raças disponíveis.
+        racasDisponiveis.forEach(function (nomeRaca) {
+
+            const opcao = document.createElement("option");
+
+            opcao.value = nomeRaca;
+            opcao.textContent = nomeRaca;
+
+            raca.appendChild(opcao);
+
+        });
+
+        // Preserva raças antigas ou não cadastradas na lista.
+        if (racaAtual && !racasDisponiveis.includes(racaAtual)) {
+
+            const opcaoAntiga = document.createElement("option");
+
+            opcaoAntiga.value = racaAtual;
+            opcaoAntiga.textContent = racaAtual;
+
+            raca.appendChild(opcaoAntiga);
+
+        }
+
+        // Seleciona a raça já cadastrada.
+        raca.value = racaAtual || "";
+
+    }
+
+    // =================================================
     // PREENCHER OS DADOS DO PET
     // =================================================
 
     nome.value = pet.nome;
     tipo.value = pet.tipo;
-    raca.value = pet.raca;
+
+    // Carrega a lista e mantém a raça atual.
+    carregarRacas(pet.tipo, pet.raca);
+
+    // Atualiza a lista quando o tipo do pet for alterado.
+    tipo.addEventListener("change", function () {
+
+        carregarRacas(tipo.value, "");
+
+    });
+
     tamanho.value = pet.tamanho;
     proprietario.value = pet.proprietario;
     observacoes.value = pet.observacoes || "";
